@@ -8,9 +8,9 @@ public class Ore extends Object
 	}
 
 	private OreType oreType;
-	private float units; 
+	private String units; 
 
-	public Ore( OreType type, float units )
+	public Ore( OreType type, String units )
 	{
 		this.setOreType( type );
 		this.setUnits( units );
@@ -22,7 +22,7 @@ public class Ore extends Object
 		this.setUnits( ore.units );
 	}
 
-	public float getUnits()
+	public String getUnits()
 	{
 		return this.units;
 	}
@@ -32,7 +32,7 @@ public class Ore extends Object
 		return this.oreType;
 	}
 
-	public void setUnits( float units )
+	public void setUnits( String units )
 	{
 		this.units = units;
 	}
