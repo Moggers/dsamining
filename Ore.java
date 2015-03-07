@@ -1,4 +1,4 @@
-
+// Ore class contains type as an enum of IRON and NICKEL, and a measurement stored in the float units.
 
 public class Ore extends Object
 {
