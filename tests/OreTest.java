@@ -18,4 +18,14 @@ public class OreTest
 		Ore oreCopy = new Ore( oreOrig );
 		assertEquals( oreOrig, oreCopy );
 	}
+
+	@Test 
+	public void testEquals()
+	{
+		Ore oreOrig = new Ore( Ore.OreType.IRON, "kg" );
+		assertEquals( oreOrig, oreOrig );
+		Ore oreCopy = new Ore( oreOrig );
+		oreCopy.setUnits( "ton" );
+		assertNotEquals( oreOrig, oreCopy );
+	}
 }
