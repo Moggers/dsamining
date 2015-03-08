@@ -15,7 +15,7 @@ public class OrePile extends Object
 	public OrePile( OrePile orePile )
 	{
 		setWeight( orePile.getWeight() );
-		setOre( new( orePile.getOre() ) );
+		setOre( new Ore( orePile.getOre() ) );
 		setGrade( orePile.getGrade() );
 	}
 
@@ -71,7 +71,7 @@ public class OrePile extends Object
 		else
 		{
 			OrePile cmpOrePile = (OrePile)obj;
-			if( cmpOrePile.getOre() == getOre() && cmpOrePile.getWeight() == getWeight() && cmpOrePile.getGrade() == getGrade() )
+			if( cmpOrePile.getOre().equals( getOre() ) && cmpOrePile.getWeight() == getWeight() && cmpOrePile.getGrade() == getGrade() )
 			{
 				equal = true;
 			}
