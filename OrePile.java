@@ -1,13 +1,13 @@
 // Ore ore - type of ore; weight - how much there is; grade - real number from 0-100 representing its quality
 public class OrePile extends Object
 {
-	private Ore ore;
+	private OreType oreType;
 	private float weight;
 	private float grade;
 
-	public OrePile( Ore ore, float wt, float grade )
+	public OrePile( OreType oreType, float wt, float grade )
 	{
-		this.setOre( new Ore( ore ) );
+		this.setOreType( oreType );
 		this.setWeight( wt );
 		this.setGrade( grade );
 	}
@@ -15,13 +15,13 @@ public class OrePile extends Object
 	public OrePile( OrePile orePile )
 	{
 		setWeight( orePile.getWeight() );
-		setOre( new Ore( orePile.getOre() ) );
+		setOreType( orePile.oreType );
 		setGrade( orePile.getGrade() );
 	}
 
-	public Ore getOre()
+	public OreType getOreType()
 	{
-		return ore;
+		return oreType;
 	}
 
 	public float getWeight()
@@ -34,9 +34,9 @@ public class OrePile extends Object
 		return grade;
 	}
 
-	public void setOre( Ore ore )
+	public void setOreType( OreType oreType )
 	{
-		this.ore = new Ore( ore );
+		this.oreType = oreType;
 	}
 
 	public void setWeight( float weight )
@@ -71,7 +71,7 @@ public class OrePile extends Object
 		else
 		{
 			OrePile cmpOrePile = (OrePile)obj;
-			if( cmpOrePile.getOre().equals( getOre() ) && cmpOrePile.getWeight() == getWeight() && cmpOrePile.getGrade() == getGrade() )
+			if( cmpOrePile.getOreType().equals( getOreType() ) && cmpOrePile.getWeight() == getWeight() && cmpOrePile.getGrade() == getGrade() )
 			{
 				equal = true;
 			}
