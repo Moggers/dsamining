@@ -15,7 +15,7 @@ public class OrePile extends Object
 	public OrePile( OrePile orePile )
 	{
 		setWeight( orePile.getWeight() );
-		setOre( orePile.getOre() );
+		setOre( new( orePile.getOre() ) );
 		setGrade( orePile.getGrade() );
 	}
 
