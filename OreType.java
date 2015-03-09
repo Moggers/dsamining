@@ -17,7 +17,8 @@ public enum OreType
 		return type;
 	}
 
-	// Transform a string into an enum.
+	// Search the enum list by a string.
+	// Is this poor form? I'm kind of using a return as a ghetto break statement to exit the loop when I've found the enum.
 	public static OreType lookupEnum( String type ) throws IllegalArgumentException
 	{
 		for( OreType loopType : values() )

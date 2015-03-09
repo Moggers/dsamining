@@ -1,3 +1,5 @@
+// A class representing a customer's request for ore BY REFINABLE METAL
+
 public class ShipmentOrder
 {
 	private int orderID;
@@ -11,6 +13,7 @@ public class ShipmentOrder
 	private boolean isPending;
 
 	// Create an order with the type, customer name, shipping address, amount and cost of ore. OrderID is generated from static nextOrderID.
+	// Validate oreType, customerName, shippingDest, and orderedMetalWt to not be null/0
 	public ShipmentOrder( OreType oreType, float unitPrice, String customerName, String shippingDest, float orderedMetalWt ) throws IllegalArgumentException
 	{
 		if( oreType == null )
@@ -129,27 +132,28 @@ public class ShipmentOrder
 		return getOrderedMetalWt() / getShippedOreWt() * 100;
 	}
 
-	// Equals( Object obj ) override, unlike every other case, simply having the same field does not make it equivalent, it MUST have the same identifier (ie a ShipmentOrder can only return true from an equals() called on itself, with itself as a parameter
+	// Check that unique ID is equivialent, impossible for two instances to share an order ID after all.
+	// NOTE: Could really just do a straight forward == check if we're going to be so strict
 	@Override
 	public boolean equals( Object obj )
 	{
 		boolean equals = false;
-		if( obj == null )
+		if( obj == null ) // Comparing object is null, not equal
 		{
 			equals = false;
 		}
-		else if( obj.getClass() != this.getClass() )
+		else if( obj.getClass() != this.getClass() ) // Comparing object is not a ShipmentOrder, not equal
 		{
 			equals = false;
 		}
 		else
 		{
 			ShipmentOrder cmpShipmentOrder = (ShipmentOrder)obj;
-			if( cmpShipmentOrder.getOrderID() == this.getOrderID() )
+			if( cmpShipmentOrder.getOrderID() == this.getOrderID() ) // Comparing object (which we have now confirmed to be a ShipmentOrder) has the same OrderID, equal
 			{
 				equals = true;
 			}
-			else
+			else // Otherwise it's not equal
 			{
 				equals = false;
 			}

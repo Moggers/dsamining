@@ -5,6 +5,8 @@ public class OrePile extends Object
 	private float weight;
 	private float grade;
 
+	// Create an OrePile with an OreType, weight, and grade.
+	// NOTE: Not sure if this OreType is being copied ByVal or ByRef, see below member setter setOreType( OreType oreType )
 	public OrePile( OreType oreType, float wt, float grade )
 	{
 		this.setOreType( oreType );
@@ -12,6 +14,8 @@ public class OrePile extends Object
 		this.setGrade( grade );
 	}
 
+	// Copy constructor
+	// NOTE: See above, if you use a copy constructor and then change the OreType (hypothetically, an OrePile should never change) will the change be reflceted in the original?
 	public OrePile( OrePile orePile )
 	{
 		setWeight( orePile.getWeight() );
@@ -19,63 +23,64 @@ public class OrePile extends Object
 		setGrade( orePile.getGrade() );
 	}
 
+	// OreType boilerplate
 	public OreType getOreType()
 	{
 		return oreType;
 	}
-
-	public float getWeight()
-	{
-		return weight;
-	}
-
-	public float getGrade()
-	{
-		return grade;
-	}
-
-	public void setOreType( OreType oreType )
+	public void setOreType( OreType oreType ) // Maybe this should be private, we haven't unlocked the secrets of alchemy, after all.
 	{
 		this.oreType = oreType;
 	}
 
+	// weight boilerplate
+	public float getWeight()
+	{
+		return weight;
+	}
 	public void setWeight( float weight )
 	{
 		this.weight = weight;
 	}
 
+	// grade boilerplate
+	public float getGrade()
+	{
+		return grade;
+	}
 	public void setGrade( float grade )
 	{
 		this.grade = grade;
 	}
 
-	// Find weight of refinable metal
+	// Find weight of refinable metal in the ore
 	public float calcMetalWeight()
 	{
 		return getWeight() * ( getGrade() / 100 );
 	}
 
-	// Test obj is not null, test obj is an OrePile, test obj has same data within variables
+	// If obj is null, return false, if obj is not an OrePile, return false, if obj is an OrePile, has the same oreType, has the same weight, and has the same grade, return true. Else return false
+	// NOTE: This is horribly wrong, if you place two OrePiles in a shed on top of eachother with the same weight, type, and grade, they're going to be the same instance according to this check. I should reconsider the definition of equals()
 	@Override
 	public boolean equals( Object obj )
 	{
 		boolean equal;
-		if( obj == null )
+		if( obj == null ) // Is it null? Then it's not equal
 		{
 			equal = false;
 		}
-		else if( getClass() != obj.getClass() )
+		else if( getClass() != obj.getClass() ) // Is it not an OrePile? Then not equals
 		{
 			equal = false;
 		}
 		else
 		{
 			OrePile cmpOrePile = (OrePile)obj;
-			if( cmpOrePile.getOreType().equals( getOreType() ) && cmpOrePile.getWeight() == getWeight() && cmpOrePile.getGrade() == getGrade() )
+			if( cmpOrePile.getOreType().equals( getOreType() ) && cmpOrePile.getWeight() == getWeight() && cmpOrePile.getGrade() == getGrade() ) // Are the member variables equivalent? Then it is equal
 			{
 				equal = true;
 			}
-			else
+			else // If they're not, then it is not equal
 			{
 				equal = false;
 			}
