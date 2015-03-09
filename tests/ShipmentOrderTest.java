@@ -7,6 +7,7 @@ public class ShipmentOrderTest
 {
 	// Check that ShipmentOrder's constructor is properly building instances
 	// NOTE: Have to add some validation validation (unit test the validation, that is)
+	// NOTE: Most of this should be move out to an equals() test case
 	@Test
 	public void testShipmentOrderConstructor()
 	{
@@ -14,9 +15,9 @@ public class ShipmentOrderTest
 		{
 			ShipmentOrder shipOrder1, shipOrder2;
 			shipOrder1 = new ShipmentOrder( OreType.IRON, 50, "Matthew Kramara", "53 Poincaire st", 600 );
-			shipOrder2 = new ShipmentOrder( OreType.IRON, 50, "Timothy McDonald", "My heart ;_;", 600 );
+			shipOrder2 = new ShipmentOrder( OreType.IRON, 50, "Timothy McDonald", "Tim's place", 600 );
 			assertEquals( shipOrder1, shipOrder1 ); // First shipment and first shipment share ID obviously
-			assertNotEquals( shipOrder1, shipOrder2 ); // First shipment and second shipment were never meant to be
+			assertNotEquals( shipOrder1, shipOrder2 ); // First shipment is not the same as the second shipment
 		}
 		catch( IllegalArgumentException iae )
 		{
