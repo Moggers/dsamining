@@ -6,7 +6,7 @@ public class OrePile extends Object
 	private float grade;
 
 	// Create an OrePile with an OreType, weight, and grade.
-	// NOTE: Not sure if this OreType is being copied ByVal or ByRef, see below member setter setOreType( OreType oreType )
+	// NOTE: Not sure if this OreType is being copied ByVal or ByRef, do assignment operators on enums work as objects or first class vars?
 	public OrePile( OreType oreType, float wt, float grade )
 	{
 		this.setOreType( oreType );
@@ -15,7 +15,7 @@ public class OrePile extends Object
 	}
 
 	// Copy constructor
-	// NOTE: See above, if you use a copy constructor and then change the OreType (hypothetically, an OrePile should never change) will the change be reflceted in the original?
+	// NOTE: See above, if you use a copy constructor and then change the OreType (though hypothetically, an OrePile should never change) will the change be reflceted in the original?
 	public OrePile( OrePile orePile )
 	{
 		setWeight( orePile.getWeight() );
@@ -28,7 +28,7 @@ public class OrePile extends Object
 	{
 		return oreType;
 	}
-	public void setOreType( OreType oreType ) // Maybe this should be private, we haven't unlocked the secrets of alchemy, after all.
+	private void setOreType( OreType oreType )
 	{
 		this.oreType = oreType;
 	}

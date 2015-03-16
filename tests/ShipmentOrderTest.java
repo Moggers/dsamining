@@ -6,18 +6,15 @@ import static org.junit.Assert.*;
 public class ShipmentOrderTest
 {
 	// Check that ShipmentOrder's constructor is properly building instances
-	// NOTE: Have to add some validation validation (unit test the validation, that is)
 	// NOTE: Most of this should be move out to an equals() test case
 	@Test
 	public void testShipmentOrderConstructor()
 	{
+		ShipmentOrder soTestConstructor, soTestValidation;
 		try
 		{
-			ShipmentOrder shipOrder1, shipOrder2;
-			shipOrder1 = new ShipmentOrder( OreType.IRON, 50, "Matthew Kramara", "53 Poincaire st", 600 );
-			shipOrder2 = new ShipmentOrder( OreType.IRON, 50, "Timothy McDonald", "Tim's place", 600 );
-			assertEquals( shipOrder1, shipOrder1 ); // First shipment and first shipment share ID obviously
-			assertNotEquals( shipOrder1, shipOrder2 ); // First shipment is not the same as the second shipment
+			soTestConstructor = new ShipmentOrder( OreType.IRON, 50, "Matthew Kramara", "53 Poincaire st", 600 );
+			assertTrue( true );
 		}
 		catch( IllegalArgumentException iae )
 		{
@@ -26,23 +23,63 @@ public class ShipmentOrderTest
 		finally
 		{
 		}
+
+		try
+		{
+			soTestValidation = new ShipmentOrder( null, 50, "Matthew Kramara", "53 Poincaire st", 600 );
+			assertTrue( false );
+		}
+		catch( IllegalArgumentException iae )
+		{
+			assertTrue( true ); // Was considering checking that we're throwing the correct exception but they all throw IAEs and I don't want to check the message in case it's changed.
+		}
+	}
+
+	@Test
+	public void testEquals()
+	{
+		try
+		{
+			ShipmentOrder shipOrder1, shipOrder2;
+			shipOrder1 = new ShipmentOrder( OreType.IRON, 50, "Matthew Kramara", "53 Poincaire st", 600 );
+			shipOrder2 = new ShipmentOrder( OreType.IRON, 50, "Tomothy McDonald", "53 Poincaire st", 600 );
+
+			assertEquals( shipOrder1, shipOrder1 );
+			assertNotEquals( shipOrder1, shipOrder2 );
+			shipOrder1.setCustomerName( "Matthew Kramara" );
+			assertNotEquals( shipOrder1, shipOrder2 );
+
+		}
+		catch( IllegalArgumentException iae )
+		{
+		}
+		finally
+		{
+		}
 	}
 
 	// Test that we're correctly retrieving the average grade of the shipped metal.
-	// NOTE: Have to add some checks for retrieving the grade of an unshipped order
 	@Test
 	public void testCalcAverageGrade()
 	{
 		try
 		{
 			ShipmentOrder shipOrder = new ShipmentOrder( OreType.IRON, 50, "Matthew Kramara", "53 Poincaire st", 100 );
+			shipOrder.setIsPending( false );
 			shipOrder.setShippedOreWt( 100 );
 			assertEquals( shipOrder.calcAverageGrade(), 100, 0 ); // Customer requests 100, we ship 100, that implies 100% quality
 			shipOrder.setShippedOreWt( 200 );
 			assertEquals( shipOrder.calcAverageGrade(), 50, 0 ); // Customer requests 100, we ship 200, that implies 50% quality
+			shipOrder.setIsPending( true );
+			shipOrder.calcAverageGrade();
+			assertTrue( false ); // Should have thrown an exception one line up
 		}
 		catch( IllegalArgumentException iae )
 		{
+		}
+		catch( Exception e )
+		{
+			assertTrue( true ); // Threw an exception when we calc'd grade of a reportedly unshipped shipment 
 		}
 		finally
 		{
@@ -58,7 +95,7 @@ public class ShipmentOrderTest
 			ShipmentOrder shipOrder = new ShipmentOrder( OreType.IRON, 50, "Matthew Kramara", "53 Poincaire st", 600 );
 			assertEquals( shipOrder.calcShipmentValue(), 30000, 0 ); // With a value per unit of 50 and 600 units, we have $30'000 dollary doos
 		}
-		catch( IllegalArgumentException iae ) // There's no assert here because the exception thrown by ShipmentOrder( ... ) Has a test further up
+		catch( IllegalArgumentException iae )
 		{
 		}
 		finally

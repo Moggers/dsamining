@@ -18,7 +18,7 @@ public enum OreType
 	}
 
 	// Search the enum list by a string.
-	// Is this poor form? I'm kind of using a return as a ghetto break statement to exit the loop when I've found the enum.
+	// Is this poor form? I'm kind of using a return as a ghetto break statement to exit the loop when I've found the enum. Ideally I'd have a check in the control statement but for each loops don't have such a thing.
 	public static OreType lookupEnum( String type ) throws IllegalArgumentException
 	{
 		for( OreType loopType : values() )

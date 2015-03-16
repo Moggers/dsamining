@@ -33,7 +33,7 @@ public class OrePileTest
 		OrePile op = new OrePile( OreType.IRON, 30, 60 );
 		OrePile opCopy = new OrePile( op );
 		assertEquals( op, opCopy ); // Copy is the same as the original
-		opCopy.setOreType( OreType.NICKEL );
+		opCopy.setWeight( 100 );
 		assertNotEquals( op, opCopy ); // Copy is not the same as original now that the OreType has been changed
 	}
 

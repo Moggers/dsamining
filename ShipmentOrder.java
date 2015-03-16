@@ -120,6 +120,11 @@ public class ShipmentOrder
 		return isPending;
 	}
 
+	public void setIsPending( boolean isPending ) 
+	{
+		this.isPending = isPending;
+	}
+
 	// Product of value and metal weight representing cumulative value
 	public float calcShipmentValue()
 	{
@@ -127,8 +132,12 @@ public class ShipmentOrder
 	}
 
 	// Return the ratio of metal weight to ore weight representing the quality of the ore as a scalar from 0 to 100
-	public float calcAverageGrade()
+	public float calcAverageGrade() throws Exception
 	{
+		if( isPending == true )
+		{
+			throw new Exception( "Tried to calculate average grade of an unshipped order" );
+		}
 		return getOrderedMetalWt() / getShippedOreWt() * 100;
 	}
 
