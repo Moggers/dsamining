@@ -39,6 +39,7 @@ public class ShipmentOrderTest
 		}
 	}
 
+	// Test that we can write files without everythin blowing up in our face
 	@Test
 	public void testWrite()
 	{
@@ -60,17 +61,23 @@ public class ShipmentOrderTest
 		}
 	}
 
+	// Test that the previously written file can be read properly (That file should be deleted, and a new one written in the preconditions for this test but I'm a lazy twerp so that may never happen)
 	@Test
 	public void testRead()
 	{
 		try
 		{
+			System.out.println( "NOISY OUTPUT FOR READ TESTING" );
 			ShipmentOrder readTestOrder = new ShipmentOrder( "testfile.dat" );
 			assertTrue( true );
 			assertEquals( readTestOrder.getOreType(), OreType.IRON );
+			System.out.println( "OreType: " + readTestOrder.getOreType() );
 			assertEquals( readTestOrder.getUnitPrice(), 50, 0 );
+			System.out.println( "UnitPrice: " + readTestOrder.getUnitPrice() );
 			assertEquals( readTestOrder.getCustomerName(), "Matthew Kramara" );
+			System.out.println( "CustomerName: " + readTestOrder.getCustomerName() );
 			assertEquals( readTestOrder.getShippingDest(), "53 Poincaire st" );
+			System.out.println( "ShippingDest: " + readTestOrder.getShippingDest() );
 		}
 		catch( IOException ioe )
 		{
