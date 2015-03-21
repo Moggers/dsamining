@@ -1,5 +1,6 @@
-// A class representing a customer's request for ore BY REFINABLE METAL
+import java.io.*;
 
+// A class representing a customer's request for ore BY REFINABLE METAL
 public class ShipmentOrder
 {
 	private int orderID;
@@ -40,6 +41,41 @@ public class ShipmentOrder
 		this.shippingDest = shippingDest;
 		this.orderedMetalWt = orderedMetalWt;
 		this.isPending = true;
+	}
+
+	// Constructor, create an order reading the contents from a file
+	public ShipmentOrder( String sourceLocation ) throws IOException
+	{
+		DataInputStream dis = new DataInputStream( new FileInputStream( sourceLocation ) );
+
+		oreType = OreType.lookupEnum( dis.readUTF() );
+		unitPrice = dis.readFloat();
+		customerName = dis.readUTF();
+		shippingDest = dis.readUTF();
+		orderedMetalWt = dis.readFloat();
+		shippedOreWt = dis.readFloat();
+		isPending = dis.readFloat() == 1;
+		dis.close();
+	}
+
+	// Write the current class to a binary file
+	public void saveToBinary( String writeLocation ) throws IOException
+	{
+		DataOutputStream dos = new DataOutputStream( new FileOutputStream( writeLocation ) );
+		writeToFile( dos );
+		dos.close();
+	}
+
+	// Throw the members at an already open fileWriter
+	public void writeToFile( DataOutputStream dos ) throws IOException
+	{
+		dos.writeUTF( oreType.toString() ); // If I rewrite the enum to be closer to a traditional C enum where it's stored as a byte, then write helper functions to turn it into a usable string, can I treat it as a first class variable? Should do some tests
+		dos.writeFloat( unitPrice );
+		dos.writeUTF( customerName );
+		dos.writeUTF( shippingDest );
+		dos.writeFloat( orderedMetalWt );
+		dos.writeFloat( shippedOreWt );
+		dos.writeInt( isPending == true ? 1 : 0 ); // Really? Do I really have to do this? (converts a bool to an int)
 	}
 
 	// orderID boilerplate

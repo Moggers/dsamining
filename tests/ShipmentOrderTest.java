@@ -2,6 +2,7 @@
 
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.io.*;
 
 public class ShipmentOrderTest
 {
@@ -32,6 +33,63 @@ public class ShipmentOrderTest
 		catch( IllegalArgumentException iae )
 		{
 			assertTrue( true ); // Was considering checking that we're throwing the correct exception but they all throw IAEs and I don't want to check the message in case it's changed.
+		}
+		finally
+		{
+		}
+	}
+
+	@Test
+	public void testWrite()
+	{
+		try
+		{
+			ShipmentOrder writeTestOrder = new ShipmentOrder( OreType.IRON, 50, "Matthew Kramara", "53 Poincaire st", 600 );
+			writeTestOrder.saveToBinary( "testfile.dat" );
+			assertTrue( true );
+		}
+		catch( IllegalArgumentException iae )
+		{
+		}
+		catch( IOException iae )
+		{
+			assertTrue( false );
+		}
+		finally
+		{
+		}
+	}
+
+	@Test
+	public void testRead()
+	{
+		try
+		{
+			ShipmentOrder readTestOrder = new ShipmentOrder( "testfile.dat" );
+			assertTrue( true );
+			assertEquals( readTestOrder.getOreType(), OreType.IRON );
+			assertEquals( readTestOrder.getUnitPrice(), 50, 0 );
+			assertEquals( readTestOrder.getCustomerName(), "Matthew Kramara" );
+			assertEquals( readTestOrder.getShippingDest(), "53 Poincaire st" );
+		}
+		catch( IOException ioe )
+		{
+			assertTrue( false );
+		}
+		finally
+		{
+		}
+		try
+		{
+			ShipmentOrder readTestOrder = new ShipmentOrder( "humpty dumpty sat on a wall humpty dumpty had a great fall all the kings horses and all thek ings men couldn't put humpty together again" );
+			assertTrue( false );
+		}
+		catch( IOException ioe )
+		{
+			assertTrue( true );
+		}
+		finally
+		{
 		}
 	}
 

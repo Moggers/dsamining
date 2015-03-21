@@ -5,7 +5,7 @@ JUNITTEST= java $(JUCP) org.junit.runner.JUnitCore
 all: clean ShipmentOrder.class OrePile.class OreType.class
 
 test: cleantest tests/ShipmentOrderTest.class tests/OrePileTest.class tests/OreTypeTest.class
-	$(JUNITTEST) tests/OreTypeTest tests/OrePileTest tests/ShipmentOrderTest  
+	$(JUNITTEST) OreTypeTest OrePileTest ShipmentOrderTest  
 
 ShipmentOrder.class:
 	$(CC) ShipmentOrder.java
@@ -29,4 +29,4 @@ clean:
 	rm -rf *.class
 
 cleantest:
-	rm -rf test/*.class
+	rm -rf tests/*.class
