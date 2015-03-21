@@ -2,6 +2,7 @@
 
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.io.*;
 
 public class OrePileTest
 {
@@ -43,5 +44,51 @@ public class OrePileTest
 	{
 		OrePile op = new OrePile( OreType.IRON, 30, 60 );
 		assertEquals( op.calcMetalWeight(), 30 * 0.6, 0 ); // Weight of 30, grade of 60%
+	}
+
+	// Check that the file writing does not throw exceptions
+	@Test
+	public void testSaveToBinary()
+	{
+		OrePile op = new OrePile( OreType.IRON, 30, 60 );
+		try
+		{
+			op.saveToBinary( "testpile.dat" );
+			assertTrue( true );
+		}
+		catch( IOException ioe )
+		{
+			assertTrue( ioe.getMessage(), false );
+		}
+		finally
+		{
+		}
+
+	}
+
+	// Check that the previously saved file can be read
+	@Test
+	public void testReadFromBinary()
+	{
+		try
+		{
+			OrePile op = OrePile.readFromBinary( "testpile.dat" );
+			assertEquals( op.getOreType(), OreType.IRON );
+			assertEquals( op.getWeight(), 30, 0 );
+			assertEquals( op.getGrade(), 60, 0 );
+		}
+		catch( IOException ioe )
+		{
+			assertTrue( ioe.getMessage(), false );
+		}
+		try
+		{
+			OrePile op = OrePile.readFromBinary( "Mary had a little lamb, His fleece was white as snow, And everywhere that Mary went, The lamb was sure to go" );
+			assertTrue( "false );
+		}
+		catch( IOException ioe )
+		{
+			assertTrue( ioe.getMessage(), true );
+		}
 	}
 }

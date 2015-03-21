@@ -1,5 +1,7 @@
+import java.io.*;
+
 // Ore ore - type of ore; weight - how much there is; grade - real number from 0-100 representing its quality
-public class OrePile extends Object
+public class OrePile extends Object implements Serializable
 {
 	private OreType oreType;
 	private float weight;
@@ -22,6 +24,35 @@ public class OrePile extends Object
 		setOreType( orePile.oreType );
 		setGrade( orePile.getGrade() );
 	}
+
+	// Read a file from a file that was previously created by saveToBinary, takes a source path and returns an OrePile, throws an IOException if the file isn't found or a standard Exception if a ClassNotFoundException is thrown, which should never ever ever happen.
+	public static OrePile readFromBinary( String sourcePath ) throws IOException, RuntimeException
+	{
+		try
+		{
+			OrePile op;
+			ObjectInputStream ois = new ObjectInputStream( new FileInputStream( sourcePath ) );
+			op = new OrePile( (OrePile)ois.readObject() );
+			ois.close();
+			return op;
+		}
+		catch( ClassNotFoundException cnfe )
+		{
+			throw new RuntimeException( "readFromBinary threw a ClassNotFoundException" );
+		}
+		finally
+		{
+		}
+	}
+
+	// Serialize OrePile and save to file, throws an IOException if writing fails.
+	public void saveToBinary( String savePath ) throws IOException
+	{
+		ObjectOutputStream oos = new ObjectOutputStream( new FileOutputStream( savePath ) );
+		oos.writeObject( this );
+		oos.close();
+	}
+
 
 	// OreType boilerplate
 	public OreType getOreType()

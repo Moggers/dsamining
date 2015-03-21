@@ -2,10 +2,13 @@ CC= javac
 JUCP= -cp .:tests:/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar
 JUNITTEST= java $(JUCP) org.junit.runner.JUnitCore
 
-all: clean ShipmentOrder.class OrePile.class OreType.class
+all: clean ShipmentOrder.class OrePile.class OreType.class OrePileIO.class
 
 test: cleantest tests/ShipmentOrderTest.class tests/OrePileTest.class tests/OreTypeTest.class
 	$(JUNITTEST) OreTypeTest OrePileTest ShipmentOrderTest  
+
+OrePileIO.class:
+	$(CC) OrePileIO.java
 
 ShipmentOrder.class:
 	$(CC) ShipmentOrder.java
