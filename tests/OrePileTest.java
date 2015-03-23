@@ -84,7 +84,7 @@ public class OrePileTest
 		try
 		{
 			OrePile op = OrePile.readFromBinary( "Mary had a little lamb, His fleece was white as snow, And everywhere that Mary went, The lamb was sure to go" );
-			assertTrue( "false );
+			assertTrue( false );
 		}
 		catch( IOException ioe )
 		{
