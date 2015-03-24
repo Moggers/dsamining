@@ -46,9 +46,13 @@ public class DSAStack
 	}
 
 	// Check the top element without removing it from the stack
-	public Object peek()
+	public Object peek() throws IndexOutOfBoundsException
 	{
-		return data[count];
+		if( count == 0 )
+		{
+			throw new IndexOutOfBoundsException( "Attempted to peek an empty stack" );
+		}
+		return data[count - 1];
 	}
 
 	// Retrieve current count
@@ -72,6 +76,6 @@ public class DSAStack
 	// Helper function, checks whether stack is empty
 	public boolean getIsEmpty()
 	{
-		return ( getSize() == 0 ) ? true: false;
+		return ( getCount() == 0 ) ? true: false;
 	}
 }

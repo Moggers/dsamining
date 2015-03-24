@@ -1,12 +1,11 @@
 CC= javac
-export CLASSPATH=.:tests:/usr/units/se110/*
-#JUCP= -cp .:tests:/usr/share/java/junit.jar:/usr/share/java/hamcrest/core.jar
+export CLASSPATH=.:tests:lib/junit.jar:lib/hamcrest-core.jar
 JUNITTEST= java org.junit.runner.JUnitCore
 
 all: clean ShipmentOrder.class OrePile.class OreType.class OrePileIO.class DSAStack.class
 
-test: cleantest tests/ShipmentOrderTest.class tests/OrePileTest.class tests/OreTypeTest.class
-	$(JUNITTEST) OreTypeTest OrePileTest ShipmentOrderTest  
+test: cleantest tests/ShipmentOrderTest.class tests/OrePileTest.class tests/OreTypeTest.class tests/DSAStackTest.class
+	$(JUNITTEST) OreTypeTest OrePileTest ShipmentOrderTest DSAStackTest
 
 OrePileIO.class:
 	 $(CC) OrePileIO.java
