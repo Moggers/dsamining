@@ -1,32 +1,40 @@
 CC= javac
-JUCP= -cp .:tests:/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar
-JUNITTEST= java $(JUCP) org.junit.runner.JUnitCore
+export CLASSPATH=.:tests:/usr/units/se110/*
+#JUCP= -cp .:tests:/usr/share/java/junit.jar:/usr/share/java/hamcrest/core.jar
+JUNITTEST= java org.junit.runner.JUnitCore
 
-all: clean ShipmentOrder.class OrePile.class OreType.class OrePileIO.class
+all: clean ShipmentOrder.class OrePile.class OreType.class OrePileIO.class DSAStack.class
 
 test: cleantest tests/ShipmentOrderTest.class tests/OrePileTest.class tests/OreTypeTest.class
 	$(JUNITTEST) OreTypeTest OrePileTest ShipmentOrderTest  
 
 OrePileIO.class:
-	$(CC) OrePileIO.java
+	 $(CC) OrePileIO.java
 
-ShipmentOrder.class:
-	$(CC) ShipmentOrder.java
+ShipmentOrder.class: OrePile.class
+	 $(CC) ShipmentOrder.java
 
 OreType.class:
-	$(CC) OreType.java
+	 $(CC) OreType.java
 
-OrePile.class:
-	$(CC) OrePile.java
+OrePile.class: OreType.class
+	 $(CC) OrePile.java
+
+DSAStack.class:
+	 $(CC) DSAStack.java
 
 tests/ShipmentOrderTest.class:
-	$(CC) $(JUCP) tests/ShipmentOrderTest.java
+	 $(CC) tests/ShipmentOrderTest.java
 
 tests/OrePileTest.class:
-	$(CC) $(JUCP) tests/OrePileTest.java
+	 $(CC) tests/OrePileTest.java
 
 tests/OreTypeTest.class:
-	$(CC) $(JUCP) tests/OreTypeTest.java
+	 $(CC) tests/OreTypeTest.java
+
+tests/DSAStackTest.class:
+	 $(CC) tests/DSAStackTest.java
+
 
 clean:
 	rm -rf *.class
